@@ -1,4 +1,5 @@
-
+#include "DCS.h"
+#include "../clique_partition/clique_partition.c"
 #include "allocate_and_bind.h"
 using namespace std;
 

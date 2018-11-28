@@ -39,6 +39,7 @@ int main(int argc, char const *argv[])
         cout << "Operation: " << comp.V[i].name << ", time: " << t[i] << endl;
     }
 
+    bindFunctionalUnit(comp.V);
 //    cout << endl << endl << "Printing vertices in graph..." << endl;
 //    comp.printVertices();
 
