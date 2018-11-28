@@ -5,18 +5,16 @@
 //  Created by Chad Cooper on 11/22/18.
 //  Copyright © 2018 Chad Cooper. All rights reserved.
 //
-
-#include <stdio.h>
 #include "DCS.h"
 
 reg* regByName(std::vector<reg>& regs, std::string reg_name){
-    
+
     for(int i= 0; i < regs.size(); i++){
         if (regs[i].name == reg_name) {
             return &regs[i];
         }
     }
-    
+
     return nullptr;
 }
 
@@ -80,21 +78,21 @@ void Graph::buildGraph(std::string filename, bool print){
 
     // Establish delays for each resource type:
     std::array<int, 4> delay = {1, 1, 1, 1};
-    
+
     std::string discard, line, reg_name, op_name, op_type, in1, in2, out;
     int width;
-    
+
     std::ifstream graphFile (filename);
     std::istringstream iss;
-    
+
     getline(graphFile, line); // INPUTS
-    
+
     if (print) (std::cout << line << std::endl);
-    
+
     iss.str(line); // Extract information from line
-    
+
     iss >> discard; // throwaway 'inputs'
-    
+
     while (iss >> reg_name >> width){
         reg temp_reg;
         temp_reg.name = reg_name;
@@ -103,14 +101,14 @@ void Graph::buildGraph(std::string filename, bool print){
         temp_reg.valid = true;
         this->addEdge(temp_reg);
     }
-    
+
     getline(graphFile, line); // OUTPUTS
     if (print) std::cout << line << std::endl;
     iss.clear();
     iss.str(line);
-    
+
     iss >> discard; // throw away 'outputs'
-    
+
     while (iss >> reg_name >> width){
         reg temp_reg;
         temp_reg.name = reg_name;
@@ -119,15 +117,15 @@ void Graph::buildGraph(std::string filename, bool print){
         temp_reg.valid = false;
         this->addEdge(temp_reg);
     }
-    
+
     getline(graphFile, line); // Intermediate registers
     if (print) std::cout << line << std::endl;
-    
+
     iss.clear();
     iss.str(line);
-    
+
     iss >> discard; // throw away 'regs'
-    
+
     while (iss >> reg_name >> width) {
         reg temp_reg;
         temp_reg.name = reg_name;
@@ -136,20 +134,20 @@ void Graph::buildGraph(std::string filename, bool print){
         temp_reg.valid = false;
         this->addEdge(temp_reg);
     }
-    
+
     getline(graphFile, line);
     while(line != "end"){
-        
+
         iss.clear();
         iss.str(line);
-        
+
         if (print) std::cout << iss.str() << std::endl;
-        
+
         while(iss >> op_name >> op_type >> width >> in1 >> in2 >> out){
             op temp_op;
             temp_op.name = op_name;
             temp_op.width = width;
-            
+
             switch (op_type[0]) {
                 case 'A':
                     temp_op.type = op::ADD;
@@ -168,22 +166,22 @@ void Graph::buildGraph(std::string filename, bool print){
                     temp_op.delay = delay[temp_op.type];
                     break;
             }
-            
+
             temp_op.input_reg[0] = regByName(this->E, in1);
             temp_op.input_reg[1] = regByName(this->E, in2);
             temp_op.output_reg = regByName(this->E, out);
             this->addVertex(temp_op);
         }
-        
+
         getline(graphFile, line);
-        
+
         // If line contains end, make sure it is end
         if(line.find("end") != std::string::npos){
             line = "end";
         }
-        
+
     }
-    
+
     if (print) std::cout << "end" << std::endl;
     graphFile.close(); // graph read
 }
@@ -191,7 +189,7 @@ void Graph::buildGraph(std::string filename, bool print){
 //MARK: Resource constrained scheduling algorithm
 
 std::vector<int> LIST_L(Graph& G,  std::array<int, 4>& a) {
-    
+
 /* PSEUDOCODE
 LIST_L( G(V, E), a) {
     l = 1;
@@ -208,67 +206,67 @@ LIST_L( G(V, E), a) {
     return (t);
  }
 */
-    
+
     std::array<int, 4> nec = {0, 0, 0, 0};
     for(auto it : G.V){
         nec[it.type]++;
     }
-    
+
     for(int i = 0; i < nec.size(); i++){
         if (nec[i] > 0 && a[i] < 1){
             throw std::invalid_argument("There must be at least one of each necessary functional unit.\n");
         }
     }
-    
+
     std::array<int,4> avail_res(a);
-    
+
     std::set<op*> unscheduled;
     std::set<op*> ready;
     std::set<op*> unfinished;
     std::set<op*> erase;
-    
-    
+
+
     // Add pointer to all vertices to set of unscheduled operations
     for(int i = 0; i < G.V.size(); i++){
         unscheduled.insert(&G.V[i]);
     }
-    
-    
+
+
     int l = 1;
-    
+
     do {
-        
+
         // Remove finished operations
         for(std::set<op*>::iterator set_it = unfinished.begin(); set_it != unfinished.end(); ++set_it){
             if((**set_it).start_time + (**set_it).delay == l){
                 // Release the resource
                 avail_res[(**set_it).type]++;
-                
+
                 // Set output register to valid
                 (**set_it).output_reg->valid = true;
-                
+
                 // Remove from unfinished
                 erase.insert(*set_it);
             }
-            
+
         }
         eraseMultiple(unfinished, erase);
-        
+
         // Determine ready operations
         // An operation is ready if its input registers is valid
         for(std::set<op*>::iterator set_it = unscheduled.begin();  set_it != unscheduled.end(); set_it++){
-            
+
             // If operation is ready, add it to ready set.
             if(opReady(**set_it)) {
                 ready.insert(*set_it);
             }
         } // end determine ready operations
-        
+
         // For each resource type...
         for(int res_type = 0; res_type < avail_res.size(); res_type++){
-            
+
             //std::cout << "Resource type: " << res_type << std::endl;
-            
+
             // Check running operations for this resource
             int in_use = 0;
             for(std::set<op*>::iterator set_it = unfinished.begin(); set_it != unfinished.end(); set_it++ ){
@@ -277,48 +275,48 @@ LIST_L( G(V, E), a) {
                     in_use++;
                 }
             }
-            
+
             // Adjust the number of available resources of this type
             avail_res[res_type] = a[res_type] - in_use;
-            
+
             // Schedule operations
             for(std::set<op*>::iterator set_it = ready.begin(); set_it != ready.end(); set_it++){
-                
+
                 // If the operation uses this resource, and there are available resources of this type,
                 if((**set_it).type == res_type && avail_res[res_type] > 0){
                     (**set_it).start_time = l;
                     unfinished.insert(*set_it); // set it
-                    
+
                     // Reduce the available resources of this type
                     avail_res[res_type]--;
-                    
+
                     // This operation has now been scheduled, so
                     // remove from ready set and unscheduled set
                     erase.insert(*set_it);
                     unscheduled.erase(unscheduled.find(*set_it));
                 }
 
-                
+
             }
-            
+
             // Erase from ready set
             eraseMultiple(ready, erase);
-            
-            
+
+
         } // end for each type of resource
-        
+
         // Increment the time step, l
         l = l + 1;
-        
+
     } while (!unscheduled.empty());
-    
+
     std::cout << "\nAll operations scheduled!\n" << std::endl;
-    
+
     std::vector<int> t;
     for(auto it:G.V){
         t.push_back(it.start_time);
     }
-    
+
     return t;
 }
 
@@ -336,11 +334,11 @@ void printSet(std::set<op*>& s){
 }
 
 void eraseMultiple(std::set<op*>& set, std::set<op*>& positions ){
-    
+
     for(auto it:positions){
         set.erase(set.find(it));
     }
-    
+
     positions.clear();
-    
+
 }
