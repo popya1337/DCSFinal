@@ -15,7 +15,7 @@ int main(int argc, char const *argv[])
     // Make a compatibility graph
     Graph comp;
 
-    comp.buildGraph("toyexample.aif", true);
+    comp.buildGraph("lattice.aif", true);
 
     cout << endl << endl << "Printing vertices in graph..." << endl;
     comp.printVertices();
@@ -41,13 +41,13 @@ int main(int argc, char const *argv[])
 
     bindFunctionalUnit(comp.V);
     setRegLifeTime(comp.V, comp.E);
-    cout << "MAIN\n" << endl;
-    for(int i = 0; i<comp.E.size(); i++){
-		cout << comp.E[i].name << ": "<<comp.E[i].lifetime[1] << " - " << comp.E[i].lifetime[0];
-		cout << "= " << comp.E[i].real_lifetime << endl;
+ //    cout << "MAIN\n" << endl;
+ //    for(int i = 0; i<comp.E.size(); i++){
+	// 	cout << comp.E[i].name << ": "<<comp.E[i].lifetime[1] << " - " << comp.E[i].lifetime[0];
+	// 	cout << "= " << comp.E[i].real_lifetime << endl;
 
-	}
-    cout << "\n\n";
+	// }
+ //    cout << "\n\n";
     bindRegister(comp.E);
 //    cout << endl << endl << "Printing vertices in graph..." << endl;
 //    comp.printVertices();

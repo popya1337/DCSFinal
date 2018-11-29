@@ -99,8 +99,8 @@ void Graph::buildGraph(std::string filename, bool print){
         temp_reg.type = input;
         temp_reg.width = width;
         temp_reg.valid = true;
-        temp_reg.lifetime[0] = 0;
-        temp_reg.lifetime[1] = 0;
+        // temp_reg.lifetime[0] = 0;
+        // temp_reg.lifetime[1] = 0;
         this->addEdge(temp_reg);
     }
 
@@ -117,8 +117,8 @@ void Graph::buildGraph(std::string filename, bool print){
         temp_reg.type = output;
         temp_reg.width = width;
         temp_reg.valid = false;
-        temp_reg.lifetime[0] = 0;
-        temp_reg.lifetime[1] = 0;
+        // temp_reg.lifetime[0] = 0;
+        // temp_reg.lifetime[1] = 0;
         this->addEdge(temp_reg);
     }
 
@@ -136,8 +136,8 @@ void Graph::buildGraph(std::string filename, bool print){
         temp_reg.type = intermediate;
         temp_reg.width = width;
         temp_reg.valid = false;
-        temp_reg.lifetime[0] = 0;
-        temp_reg.lifetime[1] = 0;
+        // temp_reg.lifetime[0] = 0;
+        // temp_reg.lifetime[1] = 0;
         this->addEdge(temp_reg);
     }
 
