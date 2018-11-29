@@ -1,12 +1,4 @@
-//
-//  main.cpp
-//  DCS Datapath
-//
-//  Created by Chad Cooper on 11/21/18.
-//  Copyright © 2018 Chad Cooper. All rights reserved.
-//
-
-#include "allocate_and_bind.h"
+#include "MUX_gen.h"
 using namespace std;
 
 int main(int argc, char const *argv[])
@@ -48,7 +40,8 @@ int main(int argc, char const *argv[])
 
 	// }
  //    cout << "\n\n";
-    bindRegister(comp.E);
+    reg_sharing(bindRegister(comp.E));
+
 //    cout << endl << endl << "Printing vertices in graph..." << endl;
 //    comp.printVertices();
 

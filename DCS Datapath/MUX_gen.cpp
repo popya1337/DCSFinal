@@ -14,6 +14,27 @@
 
 #include "MUX_gen.h"
 
+using namespace std;
+
+int size(int* arr){
+	for(int i = 0; i < 20; i++){
+		cout << arr[i] << endl;
+	}
+}
+
+vector<MUX> reg_sharing(vector<int*> reg_cliques){
+
+	vector<MUX> MUXs;
+	for(auto it: reg_cliques){
+		// MUXs.push_back(MUX(it.size()));
+		size(it);
+	}
 
 
+} 
+
+
+vector<MUX> FU_sharing(vector<resource_type> op_cliques){
+	
+} 
 

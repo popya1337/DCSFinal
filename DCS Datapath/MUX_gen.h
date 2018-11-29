@@ -5,21 +5,18 @@
 
 
 class MUX {
-	
+
 public:
     std::vector<std::string> MUX_in; // input register to MUX
-    int MUX_out;
-
-    op_type type; // operation type: 0 = ADD, 1 = SUB, 2 = MULT, 3 = DIV
-
-    int width;
+    int MUX_out, select, bit_width;
 
     MUX(int n){
-    	std::vector<std::string> dummy(n);
-        MUX_in = dummy;
+        MUX_in.resize(n);
     }
 };
 
+
+std::vector<MUX> reg_sharing(std::vector<int*> reg_cliques);
 
 
 
