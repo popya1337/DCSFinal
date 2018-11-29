@@ -88,7 +88,7 @@ void bindRegister(vector<reg> regs){
 	// }
 }
 
-void setRegLifeTime(vector<op> ops, vector<reg> &regs){
+void setRegLifeTime(vector<op> ops){
 	for(int i = 0; i < ops.size(); i++){
 			ops[i].output_reg->lifetime[0] = ops[i].start_time;
 			cout << ops[i].output_reg->lifetime[0] << endl;
@@ -107,7 +107,7 @@ void setRegLifeTime(vector<op> ops, vector<reg> &regs){
 		}
 	}
 
-	for(int i = 0; i < ops.size(); i++){
-	 		cout << ops[i].output_reg->lifetime[1] << endl;
-	 }
+	// for(int i = 0; i < ops.size(); i++){
+	//  		cout << ops[i].output_reg->lifetime[1] << endl;
+	//  }
 }
