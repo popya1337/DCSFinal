@@ -23,20 +23,23 @@
 |
 |
 ------------------------------------------------------------------------------*/
+enum op_type {ADD,SUB,MULT,DIV};
+enum reg_type {input, intermediate, output};
+
 
 struct reg {
-    enum reg_type {input, intermediate, output};
-    
+
     int width; // Not currently used, but it's only 2 bytes, so why not store it?
     reg_type type; // register type: 0 = input, 1 = intermediate, 2 = output
     std::string name;
     std::array<int, 2> lifetime; //  lifetime[0] = first time written to, lifetime[1] = last time read.
+    int real_lifetime;
     bool valid;
 };
 
 struct op
 {
-    enum op_type {ADD,SUB,MULT,DIV};
+
     
     std::array<reg*, 2> input_reg; // input register pointers for operation
     reg* output_reg;  // output register pointer for operation

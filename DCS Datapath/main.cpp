@@ -40,6 +40,7 @@ int main(int argc, char const *argv[])
     }
 
     bindFunctionalUnit(comp.V);
+    bindRegister(comp.E);
 //    cout << endl << endl << "Printing vertices in graph..." << endl;
 //    comp.printVertices();
 

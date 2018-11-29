@@ -96,7 +96,7 @@ void Graph::buildGraph(std::string filename, bool print){
     while (iss >> reg_name >> width){
         reg temp_reg;
         temp_reg.name = reg_name;
-        temp_reg.type = reg::input;
+        temp_reg.type = input;
         temp_reg.width = width;
         temp_reg.valid = true;
         this->addEdge(temp_reg);
@@ -112,7 +112,7 @@ void Graph::buildGraph(std::string filename, bool print){
     while (iss >> reg_name >> width){
         reg temp_reg;
         temp_reg.name = reg_name;
-        temp_reg.type = reg::output;
+        temp_reg.type = output;
         temp_reg.width = width;
         temp_reg.valid = false;
         this->addEdge(temp_reg);
@@ -129,7 +129,7 @@ void Graph::buildGraph(std::string filename, bool print){
     while (iss >> reg_name >> width) {
         reg temp_reg;
         temp_reg.name = reg_name;
-        temp_reg.type = reg::intermediate;
+        temp_reg.type = intermediate;
         temp_reg.width = width;
         temp_reg.valid = false;
         this->addEdge(temp_reg);
@@ -150,19 +150,19 @@ void Graph::buildGraph(std::string filename, bool print){
 
             switch (op_type[0]) {
                 case 'A':
-                    temp_op.type = op::ADD;
+                    temp_op.type = ADD;
                     temp_op.delay = delay[temp_op.type];
                     break;
                 case 'S':
-                    temp_op.type = op::SUB;
+                    temp_op.type = SUB;
                     temp_op.delay = delay[temp_op.type];
                     break;
                 case 'M':
-                    temp_op.type = op::MULT;
+                    temp_op.type = MULT;
                     temp_op.delay = delay[temp_op.type];
                     break;
                 case 'D':
-                    temp_op.type = op::DIV;
+                    temp_op.type = DIV;
                     temp_op.delay = delay[temp_op.type];
                     break;
             }
