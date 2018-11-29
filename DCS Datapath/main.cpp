@@ -15,7 +15,7 @@ int main(int argc, char const *argv[])
     // Make a compatibility graph
     Graph comp;
 
-    comp.buildGraph("lattice.aif", true);
+    comp.buildGraph("toyexample.aif", true);
 
     cout << endl << endl << "Printing vertices in graph..." << endl;
     comp.printVertices();
