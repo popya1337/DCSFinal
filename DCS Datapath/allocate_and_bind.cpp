@@ -1,7 +1,7 @@
 #include "DCS.h"
 #include "../clique_partition/clique_partition.c"
 #include "allocate_and_bind.h"
-#include <typeinfo> 
+#include <typeinfo>
 using namespace std;
 
 vector<resource_type> bindFunctionalUnit(vector<op> ops){
@@ -45,7 +45,7 @@ vector<resource_type> bindFunctionalUnit(vector<op> ops){
 		res_cliques[i].type = static_cast<op_type>(i);
 
 		for(int y = 0; clique_set[y].size != UNKNOWN; y++){
-			res_cliques[i].cliques.push_back(clique_set[y].members); 
+			res_cliques[i].cliques.push_back(clique_set[y].members);
 
 		}
 
@@ -64,8 +64,10 @@ vector<resource_type> bindFunctionalUnit(vector<op> ops){
 
 void bindRegister(vector<reg> regs){
 	for(auto it : regs){
+		if(it.type == intermediate){
 		it.real_lifetime = it.lifetime[1] - it.lifetime[0];
-		cout << it.real_lifetime << endl; 
+		cout << it.name << ": " << it.real_lifetime << endl;
+	}
 	}
 
 	// for(int i = 0; i < 4; i++){
@@ -84,4 +86,28 @@ void bindRegister(vector<reg> regs){
 	// 	clique_partition(matrix,counter[i]);
 
 	// }
+}
+
+void setRegLifeTime(vector<op> ops, vector<reg> &regs){
+	for(int i = 0; i < ops.size(); i++){
+			ops[i].output_reg->lifetime[0] = ops[i].start_time;
+			cout << ops[i].output_reg->lifetime[0] << endl;
+	}
+	for(int i = 0; i < ops.size(); i++){
+		ops[i].output_reg->lifetime[1] = 0;
+		for(int j = i; j < ops.size(); j++){
+			if(ops[i].output_reg->name == ops[j].input_reg[0] -> name){
+			//	cout << "Match found:" << ops[i].output_reg->name << " on loop: " << i << j <<endl;
+			//	cout << "Setting " << 	ops[i].input_reg[0]->name << " = " << ops[j].start_time << endl;
+				ops[j].input_reg[0]->lifetime[1] = ops[j].start_time;
+			}
+			if(ops[i].output_reg->name == ops[j].input_reg[1] -> name){
+				ops[j].input_reg[1]->lifetime[1] = ops[j].start_time;
+			}
+		}
+	}
+
+	for(int i = 0; i < ops.size(); i++){
+	 		cout << ops[i].output_reg->lifetime[1] << endl;
+	 }
 }

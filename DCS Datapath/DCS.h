@@ -40,7 +40,7 @@ struct reg {
 struct op
 {
 
-    
+
     std::array<reg*, 2> input_reg; // input register pointers for operation
     reg* output_reg;  // output register pointer for operation
     int start_time; // operation start time
@@ -48,30 +48,45 @@ struct op
     op_type type; // operation type: 0 = ADD, 1 = SUB, 2 = MULT, 3 = DIV
     std::string name;
     int width;
-    
+
     op(){
         start_time = -1;
     }
-    
+
 };
 
+// Operation: op1, time: 1
+// Operation: op2, time: 1
+// Operation: op3, time: 2
+// Operation: op4, time: 2
+// Operation: op5, time: 3
+// Operation: op6, time: 3
+// Operation: op7, time: 4
+//
+// t0: 1
+// t1: 1
+// t2: 1
+// t3: 0
+// t4: 1
+// t5: 1
+
 class Graph {
-    
+
 public:
-    
+
     std::vector<op> V;
     std::vector<reg> E;
     int**  adj;
-    
+
     void buildGraph(std::string filename, bool print);
-    
+
     void setVertices(std::vector<op>& V); // Assign V
     void setEdges(std::vector<reg>& E); // Assign E
-    
+
     void addVertex(op& v); // Add new vertex
     void addEdge(reg& E); // Add new edge
     void buildAdjMatrix(std::vector<op> V, std::vector<reg> E); // Build adjacency matrix
-    
+
     void printVertices();
     void printEdges();
 };
