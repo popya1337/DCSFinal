@@ -103,36 +103,25 @@ void setRegLifeTime(vector<op> ops, vector<reg> &regs){
 
 	int largest_TS = 0;
 
-	// for(int i = 0; i < ops.size(); i++){
-	// 	if(largest_TS < ops[i].start_time){
-	// 		largest_TS = ops[i].start_time;
-	// 	}
-	// }
+	for(int i = 0; i < ops.size(); i++){
+		if(largest_TS < ops[i].start_time){
+			largest_TS = ops[i].start_time;
+		}
+	}
 
-	// for(int i =0 ; i < ops.size(); i++){
-	// 	if(ops[i].input_reg[0] -> type == input && ops[i].start_time > ops[i].input_reg[0] -> lifetime[1] ){
-	// 		ops[i].input_reg[0] -> lifetime[1] = ops[i].start_time;
-	// 	}
-	// 	if(ops[i].input_reg[1] -> type == input && ops[i].start_time > ops[i].input_reg[1] -> lifetime[1] ){
-	// 		ops[i].input_reg[1] -> lifetime[1] = ops[i].start_time;
-	// 	}
-	// }
+	for(int i =0 ; i < ops.size(); i++){
+		if(ops[i].input_reg[0] -> type == input && ops[i].start_time > ops[i].input_reg[0] -> lifetime[1] ){
+			ops[i].input_reg[0] -> lifetime[1] = ops[i].start_time;
+		}
+		if(ops[i].input_reg[1] -> type == input && ops[i].start_time > ops[i].input_reg[1] -> lifetime[1] ){
+			ops[i].input_reg[1] -> lifetime[1] = ops[i].start_time;
+		}
+	}
 
-	// for(int i = 0; i < regs.size(); i++){
-	// 	if(regs[i].type == output){
-	// 		regs[i].lifetime[1] = largest_TS;
-	// 		cout << regs[i].name << ": " <<regs[i].lifetime[1] << endl;
-	// 	}
-	// }
-
-	// cout << "REGALLO\n";
-	// for(int i = 0; i<regs.size(); i++){
-	// 	cout << regs[i].name << ": "<<regs[i].lifetime[1] << " - " << regs[i].lifetime[0];
-	// 	cout << "= " << regs[i].real_lifetime << endl;
-
-	// }
-
-	// for(int i = 0; i < ops.size(); i++){
-	//  		cout << ops[i].output_reg->lifetime[1] << endl;
-	//  }
+	for(int i = 0; i < regs.size(); i++){
+		if(regs[i].type == output){
+			regs[i].lifetime[1] = largest_TS;
+			cout << regs[i].name << ": " <<regs[i].lifetime[1] << endl;
+		}
+	}
 }
