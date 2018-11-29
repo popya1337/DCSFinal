@@ -39,8 +39,6 @@ struct reg {
 
 struct op
 {
-
-
     std::array<reg*, 2> input_reg; // input register pointers for operation
     reg* output_reg;  // output register pointer for operation
     int start_time; // operation start time
@@ -52,17 +50,22 @@ struct op
     op(){
         start_time = -1;
     }
-
 };
 
 // Operation: op1, time: 1
-// Operation: op2, time: 1
-// Operation: op3, time: 2
-// Operation: op4, time: 2
-// Operation: op5, time: 3
-// Operation: op6, time: 3
-// Operation: op7, time: 4
-//
+// Operation: op2, time: 2
+// Operation: op3, time: 3
+// Operation: op4, time: 4
+// Operation: op5, time: 5
+// Operation: op6, time: 6
+// Operation: op7, time: 7
+// Operation: op8, time: 8
+// Operation: op9, time: 9
+// Operation: op10, time: 7
+// Operation: op11, time: 8
+// Operation: op12, time: 9
+// Operation: op13, time: 10
+
 // t0: 1
 // t1: 1
 // t2: 1
