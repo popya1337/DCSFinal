@@ -7,7 +7,7 @@ struct resource_type
 {
 
 	op_type type;
-	std::vector<int*> cliques;
+	std::vector<std::vector<int>> cliques;
 
 };
 

@@ -31,8 +31,8 @@ int main(int argc, char const *argv[])
         cout << "Operation: " << comp.V[i].name << ", time: " << t[i] << endl;
     }
 
-    //bindFunctionalUnit(comp.V);
-    setRegLifeTime(comp.V, comp.E);
+    bindFunctionalUnit(comp.V);
+    // setRegLifeTime(comp.V, comp.E);
  //    cout << "MAIN\n" << endl;
  //    for(int i = 0; i<comp.E.size(); i++){
 	// 	cout << comp.E[i].name << ": "<<comp.E[i].lifetime[1] << " - " << comp.E[i].lifetime[0];
@@ -40,7 +40,7 @@ int main(int argc, char const *argv[])
 
 	// }
  //    cout << "\n\n";
-    bindRegister(comp.E);
+    // bindRegister(comp.E);
 
 //    cout << endl << endl << "Printing vertices in graph..." << endl;
 //    comp.printVertices();

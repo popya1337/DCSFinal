@@ -51,8 +51,10 @@ vector<resource_type> bindFunctionalUnit(vector<op>& ops){
 		res_cliques[i].type = static_cast<op_type>(i);
 
 		for(int y = 0; clique_set[y].size != UNKNOWN; y++){
-			res_cliques[i].cliques.push_back(clique_set[y].members);
-
+			res_cliques[i].cliques.emplace_back();
+			for(int x = 0; clique_set[y].members[x] != UNKNOWN; x++){
+				res_cliques[i].cliques[y].push_back(clique_set[y].members[x]);
+			}
 		}
 
 		for(int y = 0; y < res_cliques[i].cliques.size(); y++){
@@ -62,6 +64,15 @@ vector<resource_type> bindFunctionalUnit(vector<op>& ops){
 
 				cout << res_cliques[i].cliques[y][z] << endl;
 			}
+		}
+
+	}
+	for(int k = 0; k < 4; k++){
+		for(int i = 0; i < res_cliques[k].cliques.size(); i++){
+			for(int j = 0; j < res_cliques[k].cliques[i].size(); j++){
+				cout << res_cliques[k].cliques[i][j] << " ";
+			}
+			cout << "\n";
 		}
 	}
 	return res_cliques;
