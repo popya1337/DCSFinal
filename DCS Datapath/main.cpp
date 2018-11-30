@@ -33,16 +33,14 @@ int main(int argc, char const *argv[])
     vector<MUX> FU_muxs;
     FU_muxs = FU_sharing(bindFunctionalUnit(comp.V));
 
-    setRegLifeTime(comp.V, comp.E);
+    //setRegLifeTime(comp.V, comp.E);
 
-    vector<MUX> reg_muxs;
-    reg_muxs = reg_sharing(bindRegister(comp.E));
+    //vector<MUX> reg_muxs;
+    //reg_muxs = reg_sharing(bindRegister(comp.E));
 
-    Datapath dp(comp.V, comp.E);
+    //Datapath dp(comp.V, comp.E);
     cout << "\n";
-    for(int i = 0; i < FU_muxs.size(); i++){
-        cout << FU_muxs[i].type << endl;
-    }
+
 
 
  //    cout << "MAIN\n" << endl;

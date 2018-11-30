@@ -32,38 +32,48 @@ vector<MUX> reg_sharing(vector<vector<int>> reg_cliques){
 vector<MUX> FU_sharing(vector<resource_type> op_cliques){
 
 	vector<MUX> MUXs;
-
+	int tracker = 0;
+	int tracker2 = 0;
 	for(int i = 0; i < 4; i++){
 
 		for(int j = 0; j < op_cliques[i].cliques.size(); j++){
-
 			MUXs.push_back(MUX(op_cliques[i].cliques[j].size()));
 
 			switch(i){
 				case 0:
-				MUXs[i].type = ADD;
+				MUXs[tracker].type = ADD;
+				tracker++;
+				cout << "Case ADD" << endl;
 				break;
 				case 1:
-				MUXs[i].type = SUB;
+				MUXs[tracker].type = SUB;
+				tracker++;
+				cout << "Case SUB" << endl;
 				break;
 				case 2:
-				MUXs[i].type = MULT;
+				MUXs[tracker].type = MULT;
+				tracker++;
+				cout << "Case MULT" << endl;
 				break;
 				default:
-				MUXs[i].type = DIV;
+				MUXs[tracker].type = DIV;
+				tracker++;
+				cout << "Case DIV" << endl;
 			}
 
 	        for(int k = 0; k < op_cliques[i].cliques[j].size(); k++){
-
-	            MUXs[j].MUX_in[k] = op_cliques[i].cliques[j][k];
+	            MUXs[tracker2].MUX_in[k] = op_cliques[i].cliques[j][k];
 	        }
-
+			tracker2++;
 		}
 
 	}
 	cout << "MUXS" << endl;
 	for(int i = 0; i < MUXs.size(); i++){
-		cout << MUXs[i].type << endl;
+		for(int j = 0; j < MUXs[i].MUX_in.size(); j++){
+			cout << MUXs[i].MUX_in[j];
+		}
+		cout << "\n";
 	}
 	return MUXs;
 }
