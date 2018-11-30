@@ -4,9 +4,9 @@
 #include "allocate_and_bind.h"
 
 
-class MUX {
+struct MUX {
 
-public:
+
     std::vector<int> MUX_in; // input register to MUX
     int MUX_out, select, bit_width;
 

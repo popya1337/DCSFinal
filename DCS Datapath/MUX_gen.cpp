@@ -28,14 +28,14 @@ vector<MUX> reg_sharing(vector<vector<int>> reg_cliques){
 	for(int i = 0; i < reg_cliques.size(); i++){
 		MUXs.push_back(MUX(reg_cliques[i].size()));
         for(int j = 0; j < reg_cliques[i].size(); j++){
-            MUXs[i].MUX_in.push_back(reg_cliques[i][j]);
+            
+            MUXs[i].MUX_in[j] = reg_cliques[i][j];
             cout << MUXs[i].MUX_in[j];
         }
         cout << "\n";
 	}
     return MUXs;
 }
-
 
 vector<MUX> FU_sharing(vector<resource_type> op_cliques){
 
