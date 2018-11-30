@@ -19,7 +19,4 @@ struct MUX {
 std::vector<MUX> reg_sharing(std::vector<std::vector<int>> reg_cliques);
 std::vector<MUX> FU_sharing(std::vector<resource_type> op_cliques);
 
-
-
-
 #endif

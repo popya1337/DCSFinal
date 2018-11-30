@@ -68,12 +68,5 @@ vector<MUX> FU_sharing(vector<resource_type> op_cliques){
 		}
 
 	}
-	cout << "MUXS" << endl;
-	for(int i = 0; i < MUXs.size(); i++){
-		for(int j = 0; j < MUXs[i].MUX_in.size(); j++){
-			cout << MUXs[i].MUX_in[j];
-		}
-		cout << "\n";
-	}
 	return MUXs;
 }
