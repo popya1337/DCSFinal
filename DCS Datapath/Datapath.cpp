@@ -20,6 +20,7 @@ Datapath::Datapath(vector<op> &ops1, vector<reg> &regs1, vector<MUX> &FU_muxs, v
     int printTracker = 0;
     for(int i = 0; i < FU_muxs.size(); i++){
         MUXs.push_back(FU_muxs[i]);
+        printTracker++;
     }
 
     for(int i = 0; i < reg_muxs.size(); i++){
