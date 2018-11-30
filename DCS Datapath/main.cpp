@@ -37,7 +37,7 @@ int main(int argc, char const *argv[])
 
     vector<MUX> reg_muxs;
     reg_muxs = reg_sharing(bindRegister(comp.E));
-    Datapath dp(comp.V, comp.E);
+    Datapath dp(comp.V, comp.E, FU_muxs, reg_muxs);
 
  //    cout << "MAIN\n" << endl;
  //    for(int i = 0; i<comp.E.size(); i++){

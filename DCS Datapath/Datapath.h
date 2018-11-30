@@ -9,7 +9,8 @@ public:
     std::vector<reg> regs;
     std::vector<MUX> MUXs;
 
-    Datapath(std::vector<op> &ops1, std::vector<reg> &regs1);
+    Datapath(std::vector<op> &ops1, std::vector<reg> &regs1, std::vector<MUX> &muxs,
+        std::vector<MUX> &reg_muxs);
 
 };
 
