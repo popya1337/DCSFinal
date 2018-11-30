@@ -33,7 +33,7 @@ vector<MUX> reg_sharing(vector<vector<int>> reg_cliques){
         }
         cout << "\n";
 	}
-
+    return MUXs;
 }
 
 
