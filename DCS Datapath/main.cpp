@@ -40,7 +40,7 @@ int main(int argc, char const *argv[])
 
 	// }
  //    cout << "\n\n";
-    reg_sharing(bindRegister(comp.E));
+    bindRegister(comp.E);
 
 //    cout << endl << endl << "Printing vertices in graph..." << endl;
 //    comp.printVertices();

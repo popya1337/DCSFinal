@@ -67,9 +67,9 @@ vector<resource_type> bindFunctionalUnit(vector<op>& ops){
 	return res_cliques;
 }
 
-vector<int*> bindRegister(vector<reg> regs){
+vector<vector<int>> bindRegister(vector<reg> regs){
 	for(auto it : regs){
-		cout << it.name << ":" << it.lifetime[0] << "," << it.lifetime[1] << endl;  
+		cout << it.name << ":" << it.lifetime[0] << "," << it.lifetime[1] << endl;
 	}
 	int * matrix[regs.size()];
 	for(int i = 0; i < regs.size(); i++){
@@ -88,15 +88,24 @@ vector<int*> bindRegister(vector<reg> regs){
 		}
 	}
 
-	vector<int*> reg_cliques;
+	vector<vector<int>> reg_cliques;
 
 	cout << "CLIQUE PARTITION FOR REGISTERS\n" << endl;
 	clique_partition(matrix,regs.size());
 
 	for(int y = 0; clique_set[y].size != UNKNOWN; y++){
-		reg_cliques.push_back(clique_set[y].members);
+		reg_cliques.emplace_back();
+		for(int x = 0; clique_set[y].members[x] != UNKNOWN; x++){
+			reg_cliques[y].push_back(clique_set[y].members[x]);
+		}
 	}
 
+	for(int i = 0; i < reg_cliques.size(); i++){
+		for(int j = 0; j < reg_cliques[i].size(); j++){
+			cout << reg_cliques[i][j] << " ";
+		}
+		cout << "\n";
+	}
  	return reg_cliques;
 }
 

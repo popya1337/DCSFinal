@@ -12,7 +12,7 @@ struct resource_type
 };
 
 std::vector<resource_type> bindFunctionalUnit(std::vector<op>& ops);
-std::vector<int*> bindRegister(std::vector<reg> regs);
+std::vector<std::vector<int>> bindRegister(std::vector<reg> regs);
 void setRegLifeTime(std::vector<op> ops, std::vector<reg> &regs);
 
 #endif
