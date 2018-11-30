@@ -31,7 +31,7 @@ int main(int argc, char const *argv[])
         cout << "Operation: " << comp.V[i].name << ", time: " << t[i] << endl;
     }
 
-    bindFunctionalUnit(comp.V);
+    FU_sharing(bindFunctionalUnit(comp.V));
     setRegLifeTime(comp.V, comp.E);
  //    cout << "MAIN\n" << endl;
  //    for(int i = 0; i<comp.E.size(); i++){
@@ -40,7 +40,7 @@ int main(int argc, char const *argv[])
 
 	// }
  //    cout << "\n\n";
-    reg_sharing(bindRegister(comp.E));
+    // reg_sharing(bindRegister(comp.E));
 
 
 //    cout << endl << endl << "Printing vertices in graph..." << endl;
