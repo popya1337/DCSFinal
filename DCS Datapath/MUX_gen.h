@@ -1,4 +1,4 @@
-#ifndef MUX_GEN 
+#ifndef MUX_GEN
 #define MUX_GEN
 
 #include "allocate_and_bind.h"
@@ -7,7 +7,7 @@
 class MUX {
 
 public:
-    std::vector<std::string> MUX_in; // input register to MUX
+    std::vector<int> MUX_in; // input register to MUX
     int MUX_out, select, bit_width;
 
     MUX(int n){
@@ -16,7 +16,7 @@ public:
 };
 
 
-std::vector<MUX> reg_sharing(std::vector<int*> reg_cliques);
+std::vector<MUX> reg_sharing(std::vector<std::vector<int>> reg_cliques);
 
 
 

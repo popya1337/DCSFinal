@@ -22,19 +22,21 @@ int size(int* arr){
 	}
 }
 
-vector<MUX> reg_sharing(vector<int*> reg_cliques){
+vector<MUX> reg_sharing(vector<vector<int>> reg_cliques){
 
 	vector<MUX> MUXs;
-	for(auto it: reg_cliques){
-		// MUXs.push_back(MUX(it.size()));
-		size(it);
+	for(int i = 0; i < reg_cliques.size(); i++){
+		MUXs.push_back(MUX(reg_cliques[i].size()));
+        for(int j = 0; j < reg_cliques[i].size(); j++){
+            MUXs[i].MUX_in.push_back(reg_cliques[i][j]);
+            cout << MUXs[i].MUX_in[j];
+        }
+        cout << "\n";
 	}
 
-
-} 
+}
 
 
 vector<MUX> FU_sharing(vector<resource_type> op_cliques){
-	
-} 
 
+}
