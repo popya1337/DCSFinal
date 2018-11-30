@@ -31,12 +31,12 @@ int main(int argc, char const *argv[])
         cout << "Operation: " << comp.V[i].name << ", time: " << t[i] << endl;
     }
     vector<MUX> FU_muxs;
-    FU_muxs = FU_sharing(bindFunctionalUnit(comp.V));
+    FU_muxs = FU_sharing(bindFunctionalUnit(comp.V), comp.V);
 
     setRegLifeTime(comp.V, comp.E);
 
     vector<MUX> reg_muxs;
-    reg_muxs = reg_sharing(bindRegister(comp.E));
+    reg_muxs = reg_sharing(bindRegister(comp.E), comp.E);
     Datapath dp(comp.V, comp.E, FU_muxs, reg_muxs);
     dp.wiring();
 

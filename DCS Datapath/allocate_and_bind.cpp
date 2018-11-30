@@ -68,6 +68,7 @@ vector<resource_type> bindFunctionalUnit(vector<op>& ops){
 		for(int i = 0; i < res_cliques[k].cliques.size(); i++){
 			for(int j = 0; j < res_cliques[k].cliques[i].size(); j++){
 			}
+
 		}
 	}
 	return res_cliques;

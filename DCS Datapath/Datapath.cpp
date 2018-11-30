@@ -20,6 +20,7 @@ Datapath::Datapath(vector<op> &ops1, vector<reg> &regs1, vector<MUX> &FU_muxs, v
     int printTracker = 0;
     for(int i = 0; i < FU_muxs.size(); i++){
         MUXs.push_back(FU_muxs[i]);
+        cout << "COPIED MUX OF TYPE: " << MUXs[printTracker].type << endl;
         printTracker++;
     }
 
@@ -32,7 +33,17 @@ Datapath::Datapath(vector<op> &ops1, vector<reg> &regs1, vector<MUX> &FU_muxs, v
 }
 
 void Datapath::wiring(){
-    for(int i = 0; i < ops.size(); i++){
-        cout << "idiot" << ops[i].name << endl;
-    }
+    // for(int i = 0; i < MUXs.size(); i++){
+    //     MUXs[i].bit_width = regs[0].width; //just makes everything all one width
+    //     for(int j = 0; j < MUXs[i].MUX_in.size(); j++)
+    //         if(MUXs[i].type == 4){
+    //             MUXs[i].
+    //         }
+    //         else{
+    //
+    //         }
+    // }
+
+
+
 }
