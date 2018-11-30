@@ -16,23 +16,15 @@
 
 using namespace std;
 
-int size(int* arr){
-	for(int i = 0; i < 20; i++){
-		cout << arr[i] << endl;
-	}
-}
-
 vector<MUX> reg_sharing(vector<vector<int>> reg_cliques){
 
 	vector<MUX> MUXs;
 	for(int i = 0; i < reg_cliques.size(); i++){
 		MUXs.push_back(MUX(reg_cliques[i].size()));
+		MUXs[i].type = REG;
         for(int j = 0; j < reg_cliques[i].size(); j++){
-            
             MUXs[i].MUX_in[j] = reg_cliques[i][j];
-            cout << MUXs[i].MUX_in[j];
         }
-        cout << "\n";
 	}
     return MUXs;
 }
@@ -62,11 +54,16 @@ vector<MUX> FU_sharing(vector<resource_type> op_cliques){
 			}
 
 	        for(int k = 0; k < op_cliques[i].cliques[j].size(); k++){
-	            
+
 	            MUXs[j].MUX_in[k] = op_cliques[i].cliques[j][k];
-	            cout << MUXs[j].MUX_in[k];
 	        }
-	        cout << "\n";
+
 		}
+
 	}
+	cout << "MUXS" << endl;
+	for(int i = 0; i < MUXs.size(); i++){
+		cout << MUXs[i].type << endl;
+	}
+	return MUXs;
 }

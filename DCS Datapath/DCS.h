@@ -23,7 +23,7 @@
 |
 |
 ------------------------------------------------------------------------------*/
-enum op_type {ADD,SUB,MULT,DIV};
+enum op_type {ADD,SUB,MULT,DIV, REG};
 enum reg_type {input, intermediate, output};
 
 

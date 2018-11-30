@@ -29,9 +29,6 @@ vector<resource_type> bindFunctionalUnit(vector<op>& ops){
 		}
 	}
 
-	for(int i = 0; i < counter.size(); i++){
-		cout << counter[i] << endl;
-	}
 
 	for(int i = 0; i < 4; i++){
 		int * matrix[counter[i]];
@@ -70,9 +67,7 @@ vector<resource_type> bindFunctionalUnit(vector<op>& ops){
 	for(int k = 0; k < 4; k++){
 		for(int i = 0; i < res_cliques[k].cliques.size(); i++){
 			for(int j = 0; j < res_cliques[k].cliques[i].size(); j++){
-				cout << res_cliques[k].cliques[i][j] << " ";
 			}
-			cout << "\n";
 		}
 	}
 	return res_cliques;
@@ -163,7 +158,6 @@ void setRegLifeTime(vector<op> ops, vector<reg> &regs){
 	for(int i = 0; i < regs.size(); i++){
 		if(regs[i].type == output){
 			regs[i].lifetime[1] = largest_TS;
-			cout << regs[i].name << ": " <<regs[i].lifetime[1] << endl;
 		}
 	}
 }
