@@ -18,11 +18,17 @@ Datapath::Datapath(vector<op> &ops1, vector<reg> &regs1, vector<MUX> &FU_muxs, v
     // Copy over MUX's
     for(int i = 0; i < FU_muxs.size(); i++){
         MUXs.push_back(FU_muxs[i]);
-        cout << "COPIED MUX OF TYPE: " << MUXs[i].type << endl;
     }
 
     for(int i = 0; i < reg_muxs.size(); i++){
         MUXs.push_back(reg_muxs[i]);
         cout << "COPIED MUX OF TYPE: " << MUXs[i].type << endl;
+    }
+
+}
+
+void Datapath::wiring(){
+    for(int i = 0; i < ops.size(); i++){
+        cout << "idiot" << ops[i].name << endl;
     }
 }

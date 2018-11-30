@@ -1,10 +1,3 @@
-//
-//  DCS.cpp
-//  DCS Datapath
-//
-//  Created by Chad Cooper on 11/22/18.
-//  Copyright © 2018 Chad Cooper. All rights reserved.
-//
 #include "DCS.h"
 
 reg* regByName(std::vector<reg>& regs, std::string reg_name){
