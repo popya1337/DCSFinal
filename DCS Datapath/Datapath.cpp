@@ -16,13 +16,17 @@ Datapath::Datapath(vector<op> &ops1, vector<reg> &regs1, vector<MUX> &FU_muxs, v
     }
     cout << "\n";
     // Copy over MUX's
+
+    int printTracker = 0;
     for(int i = 0; i < FU_muxs.size(); i++){
         MUXs.push_back(FU_muxs[i]);
-        cout << "COPIED MUX OF TYPE: " << MUXs[i].type << endl;
+        cout << "COPIED MUX OF TYPE: " << MUXs[printTracker].type << endl;
+        printTracker++;
     }
 
     for(int i = 0; i < reg_muxs.size(); i++){
         MUXs.push_back(reg_muxs[i]);
-        cout << "COPIED MUX OF TYPE: " << MUXs[i].type << endl;
+        cout << "COPIED MUX OF TYPE: " << MUXs[printTracker].type << endl;
+        printTracker++;
     }
 }
