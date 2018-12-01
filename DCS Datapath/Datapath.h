@@ -12,7 +12,8 @@ public:
     Datapath(std::vector<op> &ops1, std::vector<reg> &regs1, std::vector<MUX> &muxs,
         std::vector<MUX> &reg_muxs);
 
-    void wiring(); 
+
+    void Datapath::printToVHDL();
 
 };
 

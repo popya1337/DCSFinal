@@ -32,18 +32,7 @@ Datapath::Datapath(vector<op> &ops1, vector<reg> &regs1, vector<MUX> &FU_muxs, v
 
 }
 
-void Datapath::wiring(){
-    // for(int i = 0; i < MUXs.size(); i++){
-    //     MUXs[i].bit_width = regs[0].width; //just makes everything all one width
-    //     for(int j = 0; j < MUXs[i].MUX_in.size(); j++)
-    //         if(MUXs[i].type == 4){
-    //             MUXs[i].
-    //         }
-    //         else{
-    //
-    //         }
-    // }
-
+void Datapath::printToVHDL(){
 
 
 }
