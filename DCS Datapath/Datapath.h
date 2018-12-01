@@ -13,7 +13,7 @@ public:
         std::vector<MUX> &reg_muxs);
 
 
-    void Datapath::printToVHDL();
+    void printToVHDL(std::string filename);
 
 };
 

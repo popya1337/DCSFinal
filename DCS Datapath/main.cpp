@@ -6,8 +6,8 @@ int main(int argc, char const *argv[])
 
     // Make a compatibility graph
     Graph comp;
-
-    comp.buildGraph("toyexample.aif", true);
+    string filename = "toyexample";
+    comp.buildGraph(filename +".aif", true);
 
     cout << endl << endl << "Printing vertices in graph..." << endl;
     comp.printVertices();
@@ -38,7 +38,7 @@ int main(int argc, char const *argv[])
     vector<MUX> reg_muxs;
     reg_muxs = reg_sharing(bindRegister(comp.E), comp.E);
     Datapath dp(comp.V, comp.E, FU_muxs, reg_muxs);
-    dp.wiring();
+    dp.printToVHDL(filename);
 
  //    cout << "MAIN\n" << endl;
  //    for(int i = 0; i<comp.E.size(); i++){
