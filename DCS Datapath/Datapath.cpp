@@ -72,8 +72,8 @@ string muxSplitInput(int width, int numOfInputs, vector<string> &MUX_ins, vector
                     if(MUXs[k].type != REG){
                         for(int m = 0; m < MUXs[k].MUX_out.size(); m++){
                             if(MUX_ins[i] == MUXs[k].MUX_out[m]){
-                                // mux_input += "input(" + to_string(big) +  " downto " + to_string(small) + ") => " + MUXs[k].nameA + "_OUT, ";
-                                // flag = 1;
+                                mux_input += "input(" + to_string(big) +  " downto " + to_string(small) + ") => " + MUXs[k].nameA + "_OUT, ";
+                                flag = 1;
                             }
                         }
                     }
@@ -84,6 +84,7 @@ string muxSplitInput(int width, int numOfInputs, vector<string> &MUX_ins, vector
             mux_input += "input(" + to_string(big) +  " downto " + to_string(small) + ") => " + MUX_ins[i] + ", ";
         }
     }
+
     return mux_input;
 }
 
@@ -163,7 +164,7 @@ void Datapath::printToVHDL(string filename){
     for(int i = 0; i < MUXs.size(); i++){
         if(MUXs[i].type == REG){
             out << "\t" << MUXs[i].nameA << ": entity work.c_register" << "\n\tgeneric map(width => " << MUXs[i].width << ")\n"
-                << "\tport map(input => " << MUXs[i].nameA << "_IN, output => " << MUXs[i].nameA << "_OUT, clear => clear, clock => clock);\n\n";
+                << "\tport map(input => " << MUXs[i].nameA << "_IN, WR => 1, output => " << MUXs[i].nameA << "_OUT, clear => clear, clock => clock);\n\n";
         }
     }
 
@@ -174,12 +175,12 @@ void Datapath::printToVHDL(string filename){
         if(MUXs[i].type != REG){
             out << "\t" << MUXs[i].nameA << "_MUX_A : entity work.c_multiplexer" << "\n\tgeneric map(width => " << MUXs[i].width << ", no_of_inputs => "<<
             MUXs[i].MUX_inA.size() << ", select_size => " << get_size(MUXs[i].MUX_inA.size()) << ")\n" << "\tport map ("
-            << muxSplitInput(MUXs[i].width, MUXs[i].MUX_inA.size(), MUXs[i].MUX_inA)
+            << muxSplitInput(MUXs[i].width, MUXs[i].MUX_inA.size(), MUXs[i].MUX_inA, MUXs, this -> regs)
             << "output => " << MUXs[i].nameA << "_A_IN);\n\n";
 
             out << "\t" << MUXs[i].nameB << "_MUX_B : entity work.c_multiplexer" << "\n\tgeneric map(width => " << MUXs[i].width << ", no_of_inputs => "<<
             MUXs[i].MUX_inB.size() << ", select_size => " << get_size(MUXs[i].MUX_inB.size()) << ")\n" << "\tport map ("
-            << muxSplitInput(MUXs[i].width, MUXs[i].MUX_inA.size(), MUXs[i].MUX_inB)
+            << muxSplitInput(MUXs[i].width, MUXs[i].MUX_inA.size(), MUXs[i].MUX_inB, MUXs, this -> regs)
             << "output => " << MUXs[i].nameB << "_B_IN);\n\n";
         }
     }
@@ -195,7 +196,19 @@ void Datapath::printToVHDL(string filename){
         }
     }
 
-
+    for(int k = 0;  k < MUXs.size(); k++){
+        for(int m = 0; m < MUXs[k].MUX_out.size(); m++){
+            if(MUXs[k].type != REG){
+                cout << "\nMUX["<< k <<"] MUX_IN_A: "<< MUXs[k].MUX_inA[m] << endl;
+                cout << "MUX["<< k <<"] MUX_IN_B: "<< MUXs[k].MUX_inB[m] << endl;
+                cout << "MUX["<< k <<"] MUX_OUT: "<< MUXs[k].MUX_out[m] <<"\n" <<  endl;
+            }
+            else{
+                cout << "\nMUX["<< k <<"] MUX_IN_A: "<< MUXs[k].MUX_inA[m] << "\n"<< endl;
+                cout << "MUX["<< k <<"] MUX_OUT: "<< MUXs[k].MUX_out[m] << "\n"<< endl;
+            }
+        }
+    }
 
     out << "end " << filename << "_arch;";
 

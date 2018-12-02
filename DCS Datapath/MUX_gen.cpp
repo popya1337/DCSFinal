@@ -75,9 +75,9 @@ vector<MUX> FU_sharing(vector<resource_type> op_cliques, vector<op> ops){
 				}
 			}
 	        for(int k = 0; k < op_cliques[i].cliques[j].size(); k++){
-	            MUXs[tracker2].MUX_inA[k] = curr_type[op_cliques[i].cliques[j][k]].input_reg[0]->name; 
+	            MUXs[tracker2].MUX_inA[k] = curr_type[op_cliques[i].cliques[j][k]].input_reg[0]->name;
 				MUXs[tracker2].MUX_inB[k] = curr_type[op_cliques[i].cliques[j][k]].input_reg[1]->name;
-				MUXs[tracker2].MUX_out[k] = curr_type[op_cliques[i].cliques[j][k]].input_reg[0]->name; 
+				MUXs[tracker2].MUX_out[k] = curr_type[op_cliques[i].cliques[j][k]].output_reg->name;
 				MUXs[tracker2].nameA = "FU_" + to_string(tracker2);
 				cout << MUXs[tracker2].nameA  << endl;
 				MUXs[tracker2].nameB = "FU_" + to_string(tracker2);
