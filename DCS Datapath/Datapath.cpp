@@ -110,9 +110,8 @@ void Datapath::printToVHDL(string filename){
         }
         else{
             out << "\tsignal " << MUXs[i].nameA << "_A_IN" << " : std_logic_vector(" << regs[i].width - 1 << " downto 0);\n";
-            out << "\tsignal " << MUXs[i].nameA << "_A_OUT" << " : std_logic_vector(" << regs[i].width - 1 << " downto 0);\n";
             out << "\tsignal " << MUXs[i].nameB << "_B_IN" << " : std_logic_vector(" << regs[i].width - 1 << " downto 0);\n";
-            out << "\tsignal " << MUXs[i].nameB << "_B_OUT" << " : std_logic_vector(" << regs[i].width - 1 << " downto 0);\n";
+            out << "\tsignal " << MUXs[i].nameB << "_OUT" << " : std_logic_vector(" << regs[i].width - 1 << " downto 0);\n";
         }
     }
 
