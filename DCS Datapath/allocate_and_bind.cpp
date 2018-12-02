@@ -1,7 +1,6 @@
 #include "DCS.h"
 #include "../clique_partition/clique_partition.c"
 #include "allocate_and_bind.h"
-#include <typeinfo>
 using namespace std;
 
 vector<resource_type> bindFunctionalUnit(vector<op>& ops){
