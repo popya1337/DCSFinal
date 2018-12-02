@@ -132,7 +132,7 @@ void Datapath::printToVHDL(string filename){
 
     }
 
-    out << "\n--BEGINNING OF REGS\n\n";
+    out << "\n--BEGINNING OF SIGNALS\n\n";
 
     for(int i = 0; i < MUXs.size(); i++){
         if(MUXs[i].type == REG){
@@ -174,12 +174,12 @@ void Datapath::printToVHDL(string filename){
         if(MUXs[i].type != REG){
             out << "\t" << MUXs[i].nameA << "_MUX_A : entity work.c_multiplexer" << "\n\tgeneric map(width => " << MUXs[i].width << ", no_of_inputs => "<<
             MUXs[i].MUX_inA.size() << ", select_size => " << get_size(MUXs[i].MUX_inA.size()) << ")\n" << "\tport map ("
-            << muxSplitInput(MUXs[i].width, MUXs[i].MUX_inA.size(), MUXs[i].MUX_inA, MUXs, this->regs)
+            << muxSplitInput(MUXs[i].width, MUXs[i].MUX_inA.size(), MUXs[i].MUX_inA)
             << "output => " << MUXs[i].nameA << "_A_IN);\n\n";
 
             out << "\t" << MUXs[i].nameB << "_MUX_B : entity work.c_multiplexer" << "\n\tgeneric map(width => " << MUXs[i].width << ", no_of_inputs => "<<
             MUXs[i].MUX_inB.size() << ", select_size => " << get_size(MUXs[i].MUX_inB.size()) << ")\n" << "\tport map ("
-            << muxSplitInput(MUXs[i].width, MUXs[i].MUX_inA.size(), MUXs[i].MUX_inA, MUXs, this->regs)
+            << muxSplitInput(MUXs[i].width, MUXs[i].MUX_inA.size(), MUXs[i].MUX_inB)
             << "output => " << MUXs[i].nameB << "_B_IN);\n\n";
         }
     }
