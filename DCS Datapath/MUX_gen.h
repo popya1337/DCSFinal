@@ -9,13 +9,15 @@ struct MUX {
 
     std::vector<std::string> MUX_inA; // input register to MUX
     std::vector<std::string> MUX_inB;
-    int MUX_out, select, width;
+    std::vector<std::string> MUX_out;
+    int select, width;
     op_type type;
     std::string nameA;
     std::string nameB;
     MUX(int n){
         MUX_inA.resize(n);
         MUX_inB.resize(n);
+        MUX_out.resize(n);
     }
 };
 

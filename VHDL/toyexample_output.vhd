@@ -37,17 +37,14 @@ end datapath_toyexample;
 
 architecture toyexample_arch of datapath_toyexample is
 	signal FU_0_A_IN : std_logic_vector(3 downto 0);
-	signal FU_0_A_OUT : std_logic_vector(3 downto 0);
 	signal FU_0_B_IN : std_logic_vector(3 downto 0);
-	signal FU_0_B_OUT : std_logic_vector(3 downto 0);
+	signal FU_0_OUT : std_logic_vector(3 downto 0);
 	signal FU_1_A_IN : std_logic_vector(3 downto 0);
-	signal FU_1_A_OUT : std_logic_vector(3 downto 0);
 	signal FU_1_B_IN : std_logic_vector(3 downto 0);
-	signal FU_1_B_OUT : std_logic_vector(3 downto 0);
+	signal FU_1_OUT : std_logic_vector(3 downto 0);
 	signal FU_2_A_IN : std_logic_vector(3 downto 0);
-	signal FU_2_A_OUT : std_logic_vector(3 downto 0);
 	signal FU_2_B_IN : std_logic_vector(3 downto 0);
-	signal FU_2_B_OUT : std_logic_vector(3 downto 0);
+	signal FU_2_OUT : std_logic_vector(3 downto 0);
 	signal REG_0_IN : std_logic_vector(3 downto 0);
 	signal REG_0_OUT : std_logic_vector(3 downto 0);
 	signal REG_1_IN : std_logic_vector(3 downto 0);
@@ -129,7 +126,7 @@ begin
 
 	FU_0_MUX_B : entity work.c_multiplexer
 	generic map(width => 4, no_of_inputs => 2, select_size => 0)
-	port map (input(3 downto 0) => t4, input(7 downto 4) => h, output => FU_0_B_IN);
+	port map (input(3 downto 0) => t5, input(7 downto 4) => t3, output => FU_0_B_IN);
 
 	FU_1_MUX_A : entity work.c_multiplexer
 	generic map(width => 4, no_of_inputs => 3, select_size => 1)
@@ -137,7 +134,7 @@ begin
 
 	FU_1_MUX_B : entity work.c_multiplexer
 	generic map(width => 4, no_of_inputs => 3, select_size => 1)
-	port map (input(3 downto 0) => t2, input(7 downto 4) => b, input(11 downto 8) => f, output => FU_1_B_IN);
+	port map (input(3 downto 0) => g, input(7 downto 4) => a, input(11 downto 8) => e, output => FU_1_B_IN);
 
 	FU_2_MUX_A : entity work.c_multiplexer
 	generic map(width => 4, no_of_inputs => 2, select_size => 0)
@@ -145,7 +142,7 @@ begin
 
 	FU_2_MUX_B : entity work.c_multiplexer
 	generic map(width => 4, no_of_inputs => 2, select_size => 0)
-	port map (input(3 downto 0) => t1, input(7 downto 4) => d, output => FU_2_B_IN);
+	port map (input(3 downto 0) => t0, input(7 downto 4) => c, output => FU_2_B_IN);
 
 	REG_0_MUX : entity work.c_multiplexer
 	generic map(width => 4, no_of_inputs => 2, select_size => 0)
