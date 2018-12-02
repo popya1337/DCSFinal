@@ -88,6 +88,22 @@ string muxSplitInput(int width, int numOfInputs, vector<string> &MUX_ins, vector
     return mux_input;
 }
 
+// for(int k = 0;  k < MUXs.size(); k++){
+//     for(int m = 0; m < MUXs[k].MUX_out.size(); m++){
+//         if(MUXs[k].type != REG){
+//             cout << "\nMUX["<< k <<"] MUX_IN_A: "<< MUXs[k].MUX_inA[m] << endl;
+//             cout << "MUX["<< k <<"] MUX_IN_B: "<< MUXs[k].MUX_inB[m] << endl;
+//             cout << "MUX["<< k <<"] MUX_OUT: "<< MUXs[k].MUX_out[m] <<"\n" <<  endl;
+//         }
+//         else{
+//             cout << "\nMUX["<< k <<"] MUX_IN_A: "<< MUXs[k].MUX_inA[m] << "\n"<< endl;
+//             cout << "MUX["<< k <<"] MUX_OUT: "<< MUXs[k].MUX_out[m] << "\n"<< endl;
+//         }
+//     }
+// }
+
+
+
 void Datapath::printToVHDL(string filename){
     ofstream out("../VHDL/" + filename + "_output_test.vhd" );
 
@@ -103,7 +119,6 @@ void Datapath::printToVHDL(string filename){
 		else if (regs[i].type == output)
             out << "\t" << regs[i].name << " : out std_logic_vector(" << regs[i].width - 1 << " downto 0);\n";
     }
-
     for (int i = 0; i < MUXs.size(); i++){
         if(MUXs[i].type == REG){
             out << "\t" << MUXs[i].nameA << "_MUX_SEL" << " : in std_logic_vector(" << get_size(MUXs[i].MUX_inA.size()) << " downto 0);\n";
@@ -113,16 +128,10 @@ void Datapath::printToVHDL(string filename){
             out << "\t" << MUXs[i].nameB << "_MUX_B_SEL" << " : in std_logic_vector(" << get_size(MUXs[i].MUX_inB.size())  << " downto 0);\n";
         }
     }
-
     out << "\tclear : in std_logic;\n\tclock : in std_logic);\nend datapath_" << filename << ";\n";
     out << "\narchitecture " << filename << "_arch of datapath_" << filename << " is\n";
 
-    for(int i = 0; i < regs.size(); i++){
-
-    }
-
     out << "\n--BEGINNING OF SIGNALS\n\n";
-
     for(int i = 0; i < MUXs.size(); i++){
         if(MUXs[i].type == REG){
             out << "\tsignal " << MUXs[i].nameA << "_IN" << " : std_logic_vector(" << regs[i].width - 1 << " downto 0);\n";
@@ -134,31 +143,22 @@ void Datapath::printToVHDL(string filename){
             out << "\tsignal " << MUXs[i].nameB << "_OUT" << " : std_logic_vector(" << regs[i].width - 1 << " downto 0);\n";
         }
     }
-
     out << "\nbegin\n\n";
-
     out << "\n--BEGINNING OF FUNCTIONAL UNITS\n\n";
-
-
     for(int i = 0; i < MUXs.size(); i++){
         if(MUXs[i].type != REG){
             out << "\t" << MUXs[i].nameA << print_FU_entity(MUXs[i].type) << "\n\tgeneric map(width => " << MUXs[i].width << ")\n"
                 << "\tport map(input1 => " << MUXs[i].nameA << "_A_IN, input2 => " << MUXs[i].nameB << "_B_IN, output => " << MUXs[i].nameA << "_OUT);\n\n";
         }
     }
-
     out << "\n--BEGINNING OF REGS\n\n";
-
     for(int i = 0; i < MUXs.size(); i++){
         if(MUXs[i].type == REG){
             out << "\t" << MUXs[i].nameA << ": entity work.c_register" << "\n\tgeneric map(width => " << MUXs[i].width << ")\n"
                 << "\tport map(input => " << MUXs[i].nameA << "_IN, WR => 1, output => " << MUXs[i].nameA << "_OUT, clear => clear, clock => clock);\n\n";
         }
     }
-
-
     out << "\n--BEGINNING OF MUXES FOR FUNCTIONAL UNITS\n\n";
-
     for(int i = 0; i < MUXs.size(); i++){
         if(MUXs[i].type != REG){
             out << "\t" << MUXs[i].nameA << "_MUX_A : entity work.c_multiplexer" << "\n\tgeneric map(width => " << MUXs[i].width << ", no_of_inputs => "<<
@@ -172,9 +172,7 @@ void Datapath::printToVHDL(string filename){
             << "output => " << MUXs[i].nameB << "_B_IN);\n\n";
         }
     }
-
     out << "\n--BEGINNING OF MUXES FOR REGISTERS\n\n";
-
     for(int i = 0; i < MUXs.size(); i++){
         if(MUXs[i].type == REG){
             out << "\t" << MUXs[i].nameA << "_MUX : entity work.c_multiplexer" << "\n\tgeneric map(width => " << MUXs[i].width << ", no_of_inputs => "<<
@@ -184,21 +182,6 @@ void Datapath::printToVHDL(string filename){
         }
     }
 
-    for(int k = 0;  k < MUXs.size(); k++){
-        for(int m = 0; m < MUXs[k].MUX_out.size(); m++){
-            if(MUXs[k].type != REG){
-                cout << "\nMUX["<< k <<"] MUX_IN_A: "<< MUXs[k].MUX_inA[m] << endl;
-                cout << "MUX["<< k <<"] MUX_IN_B: "<< MUXs[k].MUX_inB[m] << endl;
-                cout << "MUX["<< k <<"] MUX_OUT: "<< MUXs[k].MUX_out[m] <<"\n" <<  endl;
-            }
-            else{
-                cout << "\nMUX["<< k <<"] MUX_IN_A: "<< MUXs[k].MUX_inA[m] << "\n"<< endl;
-                cout << "MUX["<< k <<"] MUX_OUT: "<< MUXs[k].MUX_out[m] << "\n"<< endl;
-            }
-        }
-    }
-
     out << "end " << filename << "_arch;";
-
     out.close();
 }

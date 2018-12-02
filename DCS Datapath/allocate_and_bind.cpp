@@ -107,12 +107,6 @@ vector<vector<int>> bindRegister(vector<reg> regs){
 		}
 	}
 
-	// for(int i = 0; i < reg_cliques.size(); i++){
-	// 	for(int j = 0; j < reg_cliques[i].size(); j++){
-	// 		cout << reg_cliques[i][j] << " ";
-	// 	}
-	// 	cout << "\n";
-	// }
  	return reg_cliques;
 }
 
