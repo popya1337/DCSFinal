@@ -67,7 +67,7 @@ string muxSplitInput(int width, int numOfInputs, vector<string> &MUX_ins, vector
         int big = width*( i + 1) - 1;
         int small = big - (width - 1);
         for(int j = 0; j  < regs.size() ; j++){
-            if(MUX_ins[i] == regs[j].name && regs[j].type == intermediate){
+            if(MUX_ins[i] == regs[j].name && (regs[j].type == intermediate || regs[j].type == output) ){
                 for(int k = 0;  k < MUXs.size(); k++){
                     if(MUXs[k].type != REG){
                         for(int m = 0; m < MUXs[k].MUX_out.size(); m++){
@@ -85,18 +85,6 @@ string muxSplitInput(int width, int numOfInputs, vector<string> &MUX_ins, vector
         }
     }
 
-    return mux_input;
-}
-
-
-
-string muxSplitInput(int width, int numOfInputs, vector<string> &MUX_ins){
-    string mux_input = "";
-    for(int i = 0; i < numOfInputs; i++){
-        int big = width*( i + 1) - 1;
-        int small = big - (width - 1);
-        mux_input += "input(" + to_string(big) +  " downto " + to_string(small) + ") => " + MUX_ins[i] + ", ";
-    }
     return mux_input;
 }
 

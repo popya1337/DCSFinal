@@ -161,7 +161,7 @@ begin
 
 	REG_0_MUX : entity work.c_multiplexer
 	generic map(width => 4, no_of_inputs => 2, select_size => 1)
-	port map (input(3 downto 0) => i, input(7 downto 4) => FU_1_OUT, output => REG_0_IN);
+	port map (input(3 downto 0) => FU_0_OUT, input(7 downto 4) => FU_1_OUT, output => REG_0_IN);
 
 	REG_1_MUX : entity work.c_multiplexer
 	generic map(width => 4, no_of_inputs => 2, select_size => 1)
