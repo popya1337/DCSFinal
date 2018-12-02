@@ -1,11 +1,3 @@
-//
-//  DCS.h
-//  DCS Datapath
-//
-//  Created by Chad Cooper on 11/21/18.
-//  Copyright © 2018 Chad Cooper. All rights reserved.
-//
-#define __USE_MINGW_ANSI_STDIO 0
 #ifndef DCS_h
 #define DCS_h
 

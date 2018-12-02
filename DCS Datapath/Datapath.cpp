@@ -100,7 +100,7 @@ string muxSplitInput(int width, int numOfInputs, vector<string> &MUX_ins){
 }
 
 void Datapath::printToVHDL(string filename){
-    ofstream out("../VHDL/" + filename + "_output.vhd" );
+    ofstream out("../VHDL/" + filename + "_output_test.vhd" );
 
     out << "library IEEE;\n";
 	out << "use IEEE.STD_LOGIC_1164.ALL;\n";
@@ -132,6 +132,8 @@ void Datapath::printToVHDL(string filename){
 
     }
 
+    out << "\n--BEGINNING OF REGS\n\n";
+
     for(int i = 0; i < MUXs.size(); i++){
         if(MUXs[i].type == REG){
             out << "\tsignal " << MUXs[i].nameA << "_IN" << " : std_logic_vector(" << regs[i].width - 1 << " downto 0);\n";
@@ -145,25 +147,31 @@ void Datapath::printToVHDL(string filename){
     }
 
     out << "\nbegin\n\n";
+
+    out << "\n--BEGINNING OF FUNCTIONAL UNITS\n\n";
+
+
     for(int i = 0; i < MUXs.size(); i++){
-        if(MUXs[i].type == REG){
-            out << "\t" << MUXs[i].nameA << ": entity work.c_register" << "\n\tgeneric map(width => " << MUXs[i].width << ")\n"
-                << "\tport map(input => " << MUXs[i].nameA << "_IN, output => " << MUXs[i].nameA << "_OUT, clear => clear, clock => clock);\n\n";
-        }
-        else{
+        if(MUXs[i].type != REG){
             out << "\t" << MUXs[i].nameA << print_FU_entity(MUXs[i].type) << "\n\tgeneric map(width => " << MUXs[i].width << ")\n"
                 << "\tport map(input1 => " << MUXs[i].nameA << "_A_IN, input2 => " << MUXs[i].nameB << "_B_IN, output => " << MUXs[i].nameA << "_OUT);\n\n";
         }
     }
 
+    out << "\n--BEGINNING OF REGS\n\n";
+
     for(int i = 0; i < MUXs.size(); i++){
         if(MUXs[i].type == REG){
-            out << "\t" << MUXs[i].nameA << "_MUX : entity work.c_multiplexer" << "\n\tgeneric map(width => " << MUXs[i].width << ", no_of_inputs => "<<
-            MUXs[i].MUX_inA.size() << ", select_size => " << get_size(MUXs[i].MUX_inA.size()) << ")\n" << "\tport map ("
-            << muxSplitInput(MUXs[i].width, MUXs[i].MUX_inA.size(), MUXs[i].MUX_inA, MUXs, this->regs)
-            << "output => " << MUXs[i].nameA << "_IN);\n\n";
+            out << "\t" << MUXs[i].nameA << ": entity work.c_register" << "\n\tgeneric map(width => " << MUXs[i].width << ")\n"
+                << "\tport map(input => " << MUXs[i].nameA << "_IN, output => " << MUXs[i].nameA << "_OUT, clear => clear, clock => clock);\n\n";
         }
-        else{
+    }
+
+
+    out << "\n--BEGINNING OF MUXES FOR FUNCTIONAL UNITS\n\n";
+
+    for(int i = 0; i < MUXs.size(); i++){
+        if(MUXs[i].type != REG){
             out << "\t" << MUXs[i].nameA << "_MUX_A : entity work.c_multiplexer" << "\n\tgeneric map(width => " << MUXs[i].width << ", no_of_inputs => "<<
             MUXs[i].MUX_inA.size() << ", select_size => " << get_size(MUXs[i].MUX_inA.size()) << ")\n" << "\tport map ("
             << muxSplitInput(MUXs[i].width, MUXs[i].MUX_inA.size(), MUXs[i].MUX_inA, MUXs, this->regs)
@@ -173,8 +181,23 @@ void Datapath::printToVHDL(string filename){
             MUXs[i].MUX_inB.size() << ", select_size => " << get_size(MUXs[i].MUX_inB.size()) << ")\n" << "\tport map ("
             << muxSplitInput(MUXs[i].width, MUXs[i].MUX_inA.size(), MUXs[i].MUX_inA, MUXs, this->regs)
             << "output => " << MUXs[i].nameB << "_B_IN);\n\n";
-
         }
     }
+
+    out << "\n--BEGINNING OF MUXES FOR REGISTERS\n\n";
+
+    for(int i = 0; i < MUXs.size(); i++){
+        if(MUXs[i].type == REG){
+            out << "\t" << MUXs[i].nameA << "_MUX : entity work.c_multiplexer" << "\n\tgeneric map(width => " << MUXs[i].width << ", no_of_inputs => "<<
+            MUXs[i].MUX_inA.size() << ", select_size => " << get_size(MUXs[i].MUX_inA.size()) << ")\n" << "\tport map ("
+            << muxSplitInput(MUXs[i].width, MUXs[i].MUX_inA.size(), MUXs[i].MUX_inA, MUXs, this->regs)
+            << "output => " << MUXs[i].nameA << "_IN);\n\n";
+        }
+    }
+
+
+
+    out << "end " << filename << "_arch;";
+
     out.close();
 }

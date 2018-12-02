@@ -36,6 +36,9 @@ port
 end datapath_toyexample;
 
 architecture toyexample_arch of datapath_toyexample is
+
+--BEGINNING OF REGS
+
 	signal FU_0_A_IN : std_logic_vector(3 downto 0);
 	signal FU_0_B_IN : std_logic_vector(3 downto 0);
 	signal FU_0_OUT : std_logic_vector(3 downto 0);
@@ -68,6 +71,9 @@ architecture toyexample_arch of datapath_toyexample is
 
 begin
 
+
+--BEGINNING OF FUNCTIONAL UNITS
+
 	FU_0: entity work.c_subtractor
 	generic map(width => 4)
 	port map(input1 => FU_0_A_IN, input2 => FU_0_B_IN, output => FU_0_OUT);
@@ -80,45 +86,51 @@ begin
 	generic map(width => 4)
 	port map(input1 => FU_2_A_IN, input2 => FU_2_B_IN, output => FU_2_OUT);
 
+
+--BEGINNING OF REGS
+
 	REG_0: entity work.c_register
 	generic map(width => 4)
-	port map(input => REG_0_IN, WR => 1, output => REG_0_OUT, clear => clear, clock => clock);
+	port map(input => REG_0_IN, output => REG_0_OUT, clear => clear, clock => clock);
 
 	REG_1: entity work.c_register
 	generic map(width => 4)
-	port map(input => REG_1_IN, WR => 1, output => REG_1_OUT, clear => clear, clock => clock);
+	port map(input => REG_1_IN, output => REG_1_OUT, clear => clear, clock => clock);
 
 	REG_2: entity work.c_register
 	generic map(width => 4)
-	port map(input => REG_2_IN, WR => 1, output => REG_2_OUT, clear => clear, clock => clock);
+	port map(input => REG_2_IN, output => REG_2_OUT, clear => clear, clock => clock);
 
 	REG_3: entity work.c_register
 	generic map(width => 4)
-	port map(input => REG_3_IN, WR => 1, output => REG_3_OUT, clear => clear, clock => clock);
+	port map(input => REG_3_IN, output => REG_3_OUT, clear => clear, clock => clock);
 
 	REG_4: entity work.c_register
 	generic map(width => 4)
-	port map(input => REG_4_IN, WR => 1, output => REG_4_OUT, clear => clear, clock => clock);
+	port map(input => REG_4_IN, output => REG_4_OUT, clear => clear, clock => clock);
 
 	REG_5: entity work.c_register
 	generic map(width => 4)
-	port map(input => REG_5_IN, WR => 1, output => REG_5_OUT, clear => clear, clock => clock);
+	port map(input => REG_5_IN, output => REG_5_OUT, clear => clear, clock => clock);
 
 	REG_6: entity work.c_register
 	generic map(width => 4)
-	port map(input => REG_6_IN, WR => 1, output => REG_6_OUT, clear => clear, clock => clock);
+	port map(input => REG_6_IN, output => REG_6_OUT, clear => clear, clock => clock);
 
 	REG_7: entity work.c_register
 	generic map(width => 4)
-	port map(input => REG_7_IN, WR => 1, output => REG_7_OUT, clear => clear, clock => clock);
+	port map(input => REG_7_IN, output => REG_7_OUT, clear => clear, clock => clock);
 
 	REG_8: entity work.c_register
 	generic map(width => 4)
-	port map(input => REG_8_IN, WR => 1, output => REG_8_OUT, clear => clear, clock => clock);
+	port map(input => REG_8_IN, output => REG_8_OUT, clear => clear, clock => clock);
 
 	REG_9: entity work.c_register
 	generic map(width => 4)
-	port map(input => REG_9_IN, WR => 1, output => REG_9_OUT, clear => clear, clock => clock);
+	port map(input => REG_9_IN, output => REG_9_OUT, clear => clear, clock => clock);
+
+
+--BEGINNING OF MUXES FOR FUNCTIONAL UNITS
 
 	FU_0_MUX_A : entity work.c_multiplexer
 	generic map(width => 4, no_of_inputs => 2, select_size => 0)
@@ -126,7 +138,7 @@ begin
 
 	FU_0_MUX_B : entity work.c_multiplexer
 	generic map(width => 4, no_of_inputs => 2, select_size => 0)
-	port map (input(3 downto 0) => i, input(7 downto 4) => t5, output => FU_0_B_IN);
+	port map (input(3 downto 0) => t5, input(7 downto 4) => t3, output => FU_0_B_IN);
 
 	FU_1_MUX_A : entity work.c_multiplexer
 	generic map(width => 4, no_of_inputs => 3, select_size => 1)
@@ -134,7 +146,7 @@ begin
 
 	FU_1_MUX_B : entity work.c_multiplexer
 	generic map(width => 4, no_of_inputs => 3, select_size => 1)
-	port map (input(3 downto 0) => t4, input(7 downto 4) => t0, input(11 downto 8) => t2, output => FU_1_B_IN);
+	port map (input(3 downto 0) => g, input(7 downto 4) => a, input(11 downto 8) => e, output => FU_1_B_IN);
 
 	FU_2_MUX_A : entity work.c_multiplexer
 	generic map(width => 4, no_of_inputs => 2, select_size => 0)
@@ -142,7 +154,10 @@ begin
 
 	FU_2_MUX_B : entity work.c_multiplexer
 	generic map(width => 4, no_of_inputs => 2, select_size => 0)
-	port map (input(3 downto 0) => t3, input(7 downto 4) => t1, output => FU_2_B_IN);
+	port map (input(3 downto 0) => t0, input(7 downto 4) => c, output => FU_2_B_IN);
+
+
+--BEGINNING OF MUXES FOR REGISTERS
 
 	REG_0_MUX : entity work.c_multiplexer
 	generic map(width => 4, no_of_inputs => 2, select_size => 0)
