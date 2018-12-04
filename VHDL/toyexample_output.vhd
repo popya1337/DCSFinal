@@ -4,8 +4,8 @@ use ieee.numeric_std.all;
 
 
 entity datapath_toyexample is
-port
-(
+	port
+	(
 	a : in std_logic_vector(3 downto 0);
 	b : in std_logic_vector(3 downto 0);
 	c : in std_logic_vector(3 downto 0);
@@ -16,22 +16,22 @@ port
 	h : in std_logic_vector(3 downto 0);
 	i : out std_logic_vector(3 downto 0);
 	WR_INPUT : in std_logic;
-	FU_0_MUX_A_SEL : in std_logic_vector(1 downto 0);
-	FU_0_MUX_B_SEL : in std_logic_vector(1 downto 0);
-	FU_1_MUX_A_SEL : in std_logic_vector(2 downto 0);
-	FU_1_MUX_B_SEL : in std_logic_vector(2 downto 0);
-	FU_2_MUX_A_SEL : in std_logic_vector(1 downto 0);
-	FU_2_MUX_B_SEL : in std_logic_vector(1 downto 0);
-	REG_0_MUX_SEL : in std_logic_vector(1 downto 0);
-	REG_1_MUX_SEL : in std_logic_vector(1 downto 0);
-	REG_2_MUX_SEL : in std_logic_vector(1 downto 0);
-	REG_3_MUX_SEL : in std_logic_vector(1 downto 0);
-	REG_4_MUX_SEL : in std_logic_vector(1 downto 0);
-	REG_5_MUX_SEL : in std_logic_vector(1 downto 0);
-	REG_6_MUX_SEL : in std_logic_vector(1 downto 0);
-	REG_7_MUX_SEL : in std_logic_vector(1 downto 0);
-	REG_8_MUX_SEL : in std_logic_vector(1 downto 0);
-	REG_9_MUX_SEL : in std_logic_vector(1 downto 0);
+	FU_0_MUX_A_SEL : in std_logic_vector(0 downto 0);
+	FU_0_MUX_B_SEL : in std_logic_vector(0 downto 0);
+	FU_1_MUX_A_SEL : in std_logic_vector(1 downto 0);
+	FU_1_MUX_B_SEL : in std_logic_vector(1 downto 0);
+	FU_2_MUX_A_SEL : in std_logic_vector(0 downto 0);
+	FU_2_MUX_B_SEL : in std_logic_vector(0 downto 0);
+	REG_0_MUX_SEL : in std_logic_vector(0 downto 0);
+	REG_1_MUX_SEL : in std_logic_vector(0 downto 0);
+	REG_2_MUX_SEL : in std_logic_vector(0 downto 0);
+	REG_3_MUX_SEL : in std_logic_vector(0 downto 0);
+	REG_4_MUX_SEL : in std_logic_vector(0 downto 0);
+	REG_5_MUX_SEL : in std_logic_vector(0 downto 0);
+	REG_6_MUX_SEL : in std_logic_vector(0 downto 0);
+	REG_7_MUX_SEL : in std_logic_vector(0 downto 0);
+	REG_8_MUX_SEL : in std_logic_vector(0 downto 0);
+	REG_9_MUX_SEL : in std_logic_vector(0 downto 0);
 	clear : in std_logic;
 	clock : in std_logic);
 end datapath_toyexample;
@@ -72,6 +72,9 @@ architecture toyexample_arch of datapath_toyexample is
 
 begin
 
+--OUTPUTS
+
+	i <= REG_0_OUT;
 
 --BEGINNING OF FUNCTIONAL UNITS
 

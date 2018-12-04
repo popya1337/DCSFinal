@@ -6,7 +6,7 @@ LIBRARY WORK;
 entity c_subtractor is
   generic(width: integer := 4);
   port(input1, input2: in std_logic_vector((width-1) downto 0);
-       output :   out std_logic_vector(width downto 0));
+       output :   out std_logic_vector((width - 1) downto 0));
 end c_subtractor;
 
 architecture behavior of c_subtractor is
@@ -25,7 +25,7 @@ architecture behavior of c_subtractor is
 begin
   P0 : process(input1, input2)
       variable difference : integer := 0;
-      VARIABLE  temp: std_logic_vector(width downto 0);
+      VARIABLE  temp: std_logic_vector((width - 1) downto 0);
   begin
 
       difference := bits_to_int(input1) - bits_to_int(input2);

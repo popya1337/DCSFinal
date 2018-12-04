@@ -88,20 +88,24 @@ string muxSplitInput(int width, int numOfInputs, vector<string> &MUX_ins, vector
     return mux_input;
 }
 
-// for(int k = 0;  k < MUXs.size(); k++){
-//     for(int m = 0; m < MUXs[k].MUX_out.size(); m++){
-//         if(MUXs[k].type != REG){
-//             cout << "\nMUX["<< k <<"] MUX_IN_A: "<< MUXs[k].MUX_inA[m] << endl;
-//             cout << "MUX["<< k <<"] MUX_IN_B: "<< MUXs[k].MUX_inB[m] << endl;
-//             cout << "MUX["<< k <<"] MUX_OUT: "<< MUXs[k].MUX_out[m] <<"\n" <<  endl;
-//         }
-//         else{
-//             cout << "\nMUX["<< k <<"] MUX_IN_A: "<< MUXs[k].MUX_inA[m] << "\n"<< endl;
-//             cout << "MUX["<< k <<"] MUX_OUT: "<< MUXs[k].MUX_out[m] << "\n"<< endl;
-//         }
-//     }
-// }
 
+string outputs(vector <MUX> &MUXs, vector<reg> &regs){
+    string reg_outs = "";
+    for(int i  = 0; i < regs.size(); i++){
+        if(regs[i].type == output){
+            for(int j = 0;  j < MUXs.size(); j++){
+                if(MUXs[j].type == REG){
+                    for(int k = 0; k < MUXs[j].MUX_out.size(); k++){
+                        if(regs[i].name == MUXs[j].MUX_out[k]){
+                            reg_outs += "\t" + regs[i].name + " <= " + MUXs[j].nameA + "_OUT;\n" ;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    return reg_outs;
+}
 
 
 void Datapath::printToVHDL(string filename){
@@ -111,7 +115,7 @@ void Datapath::printToVHDL(string filename){
 	out << "use IEEE.STD_LOGIC_1164.ALL;\n";
 	out << "use ieee.numeric_std.all;\n\n\n";
 	out << "entity datapath_" << filename << " is\n";
-	out << "port\n(\n";
+	out << "\tport\n\t(\n";
 
     for (int i = 0; i < regs.size(); i++){
 		if (regs[i].type == input)
@@ -123,11 +127,11 @@ void Datapath::printToVHDL(string filename){
 
     for (int i = 0; i < MUXs.size(); i++){
         if(MUXs[i].type == REG){
-            out << "\t" << MUXs[i].nameA << "_MUX_SEL" << " : in std_logic_vector(" << get_size(MUXs[i].MUX_inA.size()) << " downto 0);\n";
+            out << "\t" << MUXs[i].nameA << "_MUX_SEL" << " : in std_logic_vector(" << get_size(MUXs[i].MUX_inA.size()) -1 << " downto 0);\n";
         }
         else{
-            out << "\t" << MUXs[i].nameA << "_MUX_A_SEL" << " : in std_logic_vector(" << get_size(MUXs[i].MUX_inA.size()) << " downto 0);\n";
-            out << "\t" << MUXs[i].nameB << "_MUX_B_SEL" << " : in std_logic_vector(" << get_size(MUXs[i].MUX_inB.size())  << " downto 0);\n";
+            out << "\t" << MUXs[i].nameA << "_MUX_A_SEL" << " : in std_logic_vector(" << get_size(MUXs[i].MUX_inA.size()) -1 << " downto 0);\n";
+            out << "\t" << MUXs[i].nameB << "_MUX_B_SEL" << " : in std_logic_vector(" << get_size(MUXs[i].MUX_inB.size()) -1 << " downto 0);\n";
         }
     }
     out << "\tclear : in std_logic;\n\tclock : in std_logic);\nend datapath_" << filename << ";\n";
@@ -136,16 +140,19 @@ void Datapath::printToVHDL(string filename){
     out << "\n--BEGINNING OF SIGNALS\n\n";
     for(int i = 0; i < MUXs.size(); i++){
         if(MUXs[i].type == REG){
-            out << "\tsignal " << MUXs[i].nameA << "_IN" << " : std_logic_vector(" << regs[i].width - 1 << " downto 0);\n";
-            out << "\tsignal " << MUXs[i].nameA << "_OUT" << " : std_logic_vector(" << regs[i].width - 1 << " downto 0);\n";
+            out << "\tsignal " << MUXs[i].nameA << "_IN" << " : std_logic_vector(" << regs[0].width - 1 << " downto 0);\n";
+            out << "\tsignal " << MUXs[i].nameA << "_OUT" << " : std_logic_vector(" << regs[0].width - 1 << " downto 0);\n";
         }
         else{
-            out << "\tsignal " << MUXs[i].nameA << "_A_IN" << " : std_logic_vector(" << regs[i].width - 1 << " downto 0);\n";
-            out << "\tsignal " << MUXs[i].nameB << "_B_IN" << " : std_logic_vector(" << regs[i].width - 1 << " downto 0);\n";
-            out << "\tsignal " << MUXs[i].nameB << "_OUT" << " : std_logic_vector(" << regs[i].width - 1 << " downto 0);\n";
+            out << "\tsignal " << MUXs[i].nameA << "_A_IN" << " : std_logic_vector(" << regs[0].width - 1 << " downto 0);\n";
+            out << "\tsignal " << MUXs[i].nameB << "_B_IN" << " : std_logic_vector(" << regs[0].width - 1 << " downto 0);\n";
+            out << "\tsignal " << MUXs[i].nameB << "_OUT" << " : std_logic_vector(" << regs[0].width - 1 << " downto 0);\n";
         }
     }
     out << "\nbegin\n\n";
+
+    out << "--OUTPUTS\n\n" << outputs(MUXs, regs);
+
     out << "\n--BEGINNING OF FUNCTIONAL UNITS\n\n";
     for(int i = 0; i < MUXs.size(); i++){
         if(MUXs[i].type != REG){
