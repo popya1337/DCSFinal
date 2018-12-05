@@ -6,8 +6,8 @@ int main(int argc, char const *argv[])
 
     // Make a compatibility graph
     Graph comp;
-    string filename = "adder";
-    comp.buildGraph(filename +".txt", true);
+    string filename = "lattice";
+    comp.buildGraph(filename +".aif", true);
 
     cout << endl << endl << "Printing vertices in graph..." << endl;
     comp.printVertices();
