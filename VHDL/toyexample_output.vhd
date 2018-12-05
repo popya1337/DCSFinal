@@ -138,11 +138,11 @@ begin
 
 	FU_0_MUX_A : entity work.c_multiplexer
 	generic map(width => 4, no_of_inputs => 2, select_size => 1)
-	port map (input(3 downto 0) => FU_0_OUT, input(7 downto 4) => FU_2_OUT, mux_select => FU_0_MUX_A_SEL, output => FU_0_A_IN);
+	port map (input(3 downto 0) => REG_1_OUT, input(7 downto 4) => REG_3_OUT, mux_select => FU_0_MUX_A_SEL, output => FU_0_A_IN);
 
 	FU_0_MUX_B : entity work.c_multiplexer
 	generic map(width => 4, no_of_inputs => 2, select_size => 1)
-	port map (input(3 downto 0) => FU_1_OUT, input(7 downto 4) => h, mux_select => FU_0_MUX_B_SEL, output => FU_0_B_IN);
+	port map (input(3 downto 0) => REG_2_OUT, input(7 downto 4) => h, mux_select => FU_0_MUX_B_SEL, output => FU_0_B_IN);
 
 	FU_1_MUX_A : entity work.c_multiplexer
 	generic map(width => 4, no_of_inputs => 3, select_size => 2)
@@ -150,15 +150,15 @@ begin
 
 	FU_1_MUX_B : entity work.c_multiplexer
 	generic map(width => 4, no_of_inputs => 3, select_size => 2)
-	port map (input(3 downto 0) => FU_1_OUT, input(7 downto 4) => b, input(11 downto 8) => f, mux_select => FU_1_MUX_B_SEL, output => FU_1_B_IN);
+	port map (input(3 downto 0) => REG_4_OUT, input(7 downto 4) => b, input(11 downto 8) => f, mux_select => FU_1_MUX_B_SEL, output => FU_1_B_IN);
 
 	FU_2_MUX_A : entity work.c_multiplexer
 	generic map(width => 4, no_of_inputs => 2, select_size => 1)
-	port map (input(3 downto 0) => FU_1_OUT, input(7 downto 4) => c, mux_select => FU_2_MUX_A_SEL, output => FU_2_A_IN);
+	port map (input(3 downto 0) => REG_0_OUT, input(7 downto 4) => c, mux_select => FU_2_MUX_A_SEL, output => FU_2_A_IN);
 
 	FU_2_MUX_B : entity work.c_multiplexer
 	generic map(width => 4, no_of_inputs => 2, select_size => 1)
-	port map (input(3 downto 0) => FU_2_OUT, input(7 downto 4) => d, mux_select => FU_2_MUX_B_SEL, output => FU_2_B_IN);
+	port map (input(3 downto 0) => REG_1_OUT, input(7 downto 4) => d, mux_select => FU_2_MUX_B_SEL, output => FU_2_B_IN);
 
 
 --BEGINNING OF MUXES FOR REGISTERS

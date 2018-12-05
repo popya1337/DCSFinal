@@ -133,11 +133,11 @@ begin
 
 	FU_0_MUX_A : entity work.c_multiplexer
 	generic map(width => 8, no_of_inputs => 8, select_size => 3)
-	port map (input(7 downto 0) => FU_0_OUT, input(15 downto 8) => x, input(23 downto 16) => x, input(31 downto 24) => FU_0_OUT, input(39 downto 32) => FU_0_OUT, input(47 downto 40) => FU_1_OUT, input(55 downto 48) => FU_1_OUT, input(63 downto 56) => FU_1_OUT, mux_select => FU_0_MUX_A_SEL, output => FU_0_A_IN);
+	port map (input(7 downto 0) => REG_1_OUT, input(15 downto 8) => x, input(23 downto 16) => x, input(31 downto 24) => REG_6_OUT, input(39 downto 32) => REG_6_OUT, input(47 downto 40) => REG_2_OUT, input(55 downto 48) => REG_0_OUT, input(63 downto 56) => REG_6_OUT, mux_select => FU_0_MUX_A_SEL, output => FU_0_A_IN);
 
 	FU_0_MUX_B : entity work.c_multiplexer
 	generic map(width => 8, no_of_inputs => 8, select_size => 3)
-	port map (input(7 downto 0) => FU_1_OUT, input(15 downto 8) => px0, input(23 downto 16) => FU_1_OUT, input(31 downto 24) => px1, input(39 downto 32) => FU_1_OUT, input(47 downto 40) => FU_0_OUT, input(55 downto 48) => FU_0_OUT, input(63 downto 56) => FU_1_OUT, mux_select => FU_0_MUX_B_SEL, output => FU_0_B_IN);
+	port map (input(7 downto 0) => REG_2_OUT, input(15 downto 8) => px0, input(23 downto 16) => REG_0_OUT, input(31 downto 24) => px1, input(39 downto 32) => REG_2_OUT, input(47 downto 40) => REG_4_OUT, input(55 downto 48) => REG_3_OUT, input(63 downto 56) => REG_5_OUT, mux_select => FU_0_MUX_B_SEL, output => FU_0_B_IN);
 
 	FU_1_MUX_A : entity work.c_multiplexer
 	generic map(width => 8, no_of_inputs => 5, select_size => 3)
@@ -145,7 +145,7 @@ begin
 
 	FU_1_MUX_B : entity work.c_multiplexer
 	generic map(width => 8, no_of_inputs => 5, select_size => 3)
-	port map (input(7 downto 0) => FU_0_OUT, input(15 downto 8) => FU_0_OUT, input(23 downto 16) => FU_0_OUT, input(31 downto 24) => FU_0_OUT, input(39 downto 32) => FU_0_OUT, mux_select => FU_1_MUX_B_SEL, output => FU_1_B_IN);
+	port map (input(7 downto 0) => REG_3_OUT, input(15 downto 8) => REG_4_OUT, input(23 downto 16) => REG_3_OUT, input(31 downto 24) => REG_7_OUT, input(39 downto 32) => REG_4_OUT, mux_select => FU_1_MUX_B_SEL, output => FU_1_B_IN);
 
 
 --BEGINNING OF MUXES FOR REGISTERS
